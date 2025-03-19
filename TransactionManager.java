@@ -1,3 +1,7 @@
+// TODO Add clearScreen() function after every input
+// TODO Make the ouput colorfull
+// TODO Display the output in tabular format
+
 import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,6 +40,8 @@ public class TransactionManager {
                 continue;
             }
 
+            clearScreen();
+
             switch (choice) {
                 case 1:
                     addTransaction();
@@ -62,6 +68,11 @@ public class TransactionManager {
 
         saveTransactions();
         System.out.println("Thank you for using Transaction Manager. Goodbye!");
+    }
+
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     private static void addTransaction() {
