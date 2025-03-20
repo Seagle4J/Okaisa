@@ -1,6 +1,6 @@
 // TODO Add clearScreen() function after every input
 // TODO Make the ouput colorfull
-// TODO Display the output in tabular format
+
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class TransactionManager {
     private static List<Transaction> transactions = new ArrayList<>();
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-
+    private static boolean headerPrinted = false;
     public static void main(String[] args) {
         loadTransactions();
         boolean running = true;
@@ -571,6 +571,7 @@ class Transaction implements Serializable {
     private TransactionType type;
     private LocalDate date;
     private LocalTime time;
+    private static boolean headerPrinted = false;
 
     public Transaction(int id, String person, String description, BigDecimal amount, TransactionType type,
             LocalDate date, LocalTime time) {
@@ -637,9 +638,23 @@ class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Person: %s | Description: %s | Amount: %s | Type: %s | Date: %s | Time: %s",
-                id, person, description, amount.toString(), type,
+        StringBuilder sb = new StringBuilder();
+    
+        // Print header only once
+        if (!headerPrinted) {
+            sb.append(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n",
+                    "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+            sb.append("-".repeat(90)).append("\n");
+            headerPrinted = true;
+        }
+    
+        // Print the actual row data with proper spacing
+        sb.append(String.format("%-5d | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s",
+                id, person, description.length() > 20 ? description.substring(0, 17) + "..." : description,
+                amount.toString(), type,
                 date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                time.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                time.format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
+    
+        return sb.toString();
     }
 }
