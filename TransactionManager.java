@@ -23,7 +23,7 @@ public class TransactionManager {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n===== Transaction Manager =====");
+            System.out.println("\n\033[0;32m===== Transaction Manager =====\033[0m");
             System.out.println("1. Add Transaction");
             System.out.println("2. Delete Transaction");
             System.out.println("3. Edit Transaction");
@@ -67,7 +67,7 @@ public class TransactionManager {
         }
 
         saveTransactions();
-        System.out.println("Thank you for using Transaction Manager. Goodbye!");
+        System.out.println("\033[0;32mThank you for using Transaction Manager. Goodbye!\033[0m");
     }
 
     private static void clearScreen() {
@@ -76,7 +76,7 @@ public class TransactionManager {
     }
 
     private static void addTransaction() {
-        System.out.println("\n===== Add Transaction =====");
+        System.out.println("\n\033[0;34m===== Add Transaction =====\033[0m");
 
         System.out.print("To (person): ");
         String person = scanner.nextLine().trim();
@@ -141,12 +141,12 @@ public class TransactionManager {
                 time);
 
         transactions.add(transaction);
-        System.out.println("Transaction added successfully.");
+        System.out.println("\033[0;32mTransaction added successfully.\033[0m");
         saveTransactions();
     }
 
     private static void deleteTransaction() {
-        System.out.println("\n===== Delete Transaction =====");
+        System.out.println("\n\033[0;34m===== Delete Transaction =====\033[0m");
         displayAllTransactions();
 
         System.out.print("Enter ID of transaction to delete: ");
@@ -159,7 +159,7 @@ public class TransactionManager {
 
             if (transactionToRemove.isPresent()) {
                 transactions.remove(transactionToRemove.get());
-                System.out.println("Transaction deleted successfully.");
+                System.out.println("\033[0;32mTransaction deleted successfully.\033[0m");
                 saveTransactions();
             } else {
                 System.out.println("Transaction not found.");
@@ -170,7 +170,7 @@ public class TransactionManager {
     }
 
     private static void editTransaction() {
-        System.out.println("\n===== Edit Transaction =====");
+        System.out.println("\n\033[0;34m===== Edit Transaction =====\033[0m");
         displayAllTransactions();
 
         System.out.print("Enter ID of transaction to edit: ");
@@ -187,18 +187,21 @@ public class TransactionManager {
                 System.out.println("Editing transaction: " + transaction);
                 System.out.println("Leave field empty to keep current value.");
 
+                System.out.print("1. To (person): ");
                 System.out.print("To (person) [" + transaction.getPerson() + "]: ");
                 String person = scanner.nextLine().trim();
                 if (!person.isEmpty()) {
                     transaction.setPerson(person);
                 }
 
+                System.out.print("2. Description: ");
                 System.out.print("Description [" + transaction.getDescription() + "]: ");
                 String description = scanner.nextLine().trim();
                 if (!description.isEmpty()) {
                     transaction.setDescription(description);
                 }
 
+                System.out.print("3. Amount: ");
                 System.out.print("Amount [" + transaction.getAmount() + "]: ");
                 String amountStr = scanner.nextLine().trim();
                 if (!amountStr.isEmpty()) {
@@ -209,41 +212,49 @@ public class TransactionManager {
                     }
                 }
 
+                System.out.print("4. Type (debit/credit): ");
                 System.out.print("Type (debit/credit) [" + transaction.getType() + "]: ");
                 String type = scanner.nextLine().trim();
                 if (!type.isEmpty()) {
-                    if (type.equalsIgnoreCase("debit") || type.equalsIgnoreCase("credit")) {
-                        transaction.setType(
-                                type.equalsIgnoreCase("debit") ? TransactionType.DEBIT : TransactionType.CREDIT);
-                    } else {
-                        System.out.println("Invalid type. Keeping current value.");
+                    if (type.equalsIgnoreCase("debit")) {
+                        transaction.setType(TransactionType.DEBIT);
+                    } else if (type.equalsIgnoreCase("credit")) {
+                        transaction.setType(TransactionType.CREDIT);
+                        if (type.equalsIgnoreCase("debit") || type.equalsIgnoreCase("credit")) {
+                            transaction.setType(
+                                    type.equalsIgnoreCase("debit") ? TransactionType.DEBIT : TransactionType.CREDIT);
+                        } else {
+                            System.out.println("Invalid type. Keeping current value.");
+                        }
                     }
-                }
 
-                System.out.print("Date (YYYY-MM-DD) [" + transaction.getDate().format(DATE_FORMATTER) + "]: ");
-                String dateStr = scanner.nextLine().trim();
-                if (!dateStr.isEmpty()) {
-                    try {
-                        transaction.setDate(LocalDate.parse(dateStr, DATE_FORMATTER));
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format. Keeping current value.");
+                    System.out.print("5. Date (YYYY-MM-DD): ");
+                    System.out.print("Date (YYYY-MM-DD) [" + transaction.getDate().format(DATE_FORMATTER) + "]: ");
+                    String dateStr = scanner.nextLine().trim();
+                    if (!dateStr.isEmpty()) {
+                        try {
+                            transaction.setDate(LocalDate.parse(dateStr, DATE_FORMATTER));
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid date format. Keeping current value.");
+                        }
                     }
-                }
 
-                System.out.print("Time (HH:MM:SS) [" + transaction.getTime().format(TIME_FORMATTER) + "]: ");
-                String timeStr = scanner.nextLine().trim();
-                if (!timeStr.isEmpty()) {
-                    try {
-                        transaction.setTime(LocalTime.parse(timeStr, TIME_FORMATTER));
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid time format. Keeping current value.");
+                    System.out.print("6. Time (HH:MM:SS): ");
+                    System.out.print("Time (HH:MM:SS) [" + transaction.getTime().format(TIME_FORMATTER) + "]: ");
+                    String timeStr = scanner.nextLine().trim();
+                    if (!timeStr.isEmpty()) {
+                        try {
+                            transaction.setTime(LocalTime.parse(timeStr, TIME_FORMATTER));
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid time format. Keeping current value.");
+                        }
                     }
-                }
 
-                System.out.println("Transaction updated successfully.");
-                saveTransactions();
-            } else {
-                System.out.println("Transaction not found.");
+                    System.out.println("\033[0;32mTransaction updated successfully.\033[0m");
+                    saveTransactions();
+                } else {
+                    System.out.println("Transaction not found.");
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid ID.");
@@ -251,7 +262,7 @@ public class TransactionManager {
     }
 
     private static void queryTransactions() {
-        System.out.println("\n===== Query Transactions =====");
+        System.out.println("\n\033[0;34m===== Query Transactions =====\033[0m");
         System.out.println("1. All Transactions");
         System.out.println("2. Custom Query");
         System.out.print("Enter your choice: ");
@@ -275,7 +286,7 @@ public class TransactionManager {
     }
 
     private static void customQuery() {
-        System.out.println("\n===== Custom Query =====");
+        System.out.println("\n\033[0;34m===== Custom Query =====\033[0m");
 
         // Initialize filters
         String personFilter = null;
@@ -387,7 +398,8 @@ public class TransactionManager {
         final LocalTime finalEndTime = endTime;
 
         List<Transaction> filteredTransactions = transactions.stream()
-                .filter(t -> finalPersonFilter == null || t.getPerson().toLowerCase().contains(finalPersonFilter.toLowerCase()))
+                .filter(t -> finalPersonFilter == null
+                        || t.getPerson().toLowerCase().contains(finalPersonFilter.toLowerCase()))
                 .filter(t -> finalDescriptionFilter == null || t.getDescription().equals(finalDescriptionFilter))
                 .filter(t -> finalMinAmount == null || t.getAmount().compareTo(finalMinAmount) >= 0)
                 .filter(t -> finalMaxAmount == null || t.getAmount().compareTo(finalMaxAmount) <= 0)
@@ -560,7 +572,8 @@ class Transaction implements Serializable {
     private LocalDate date;
     private LocalTime time;
 
-    public Transaction(int id, String person, String description, BigDecimal amount, TransactionType type, LocalDate date, LocalTime time) {
+    public Transaction(int id, String person, String description, BigDecimal amount, TransactionType type,
+            LocalDate date, LocalTime time) {
         this.id = id;
         this.person = person;
         this.description = description;
