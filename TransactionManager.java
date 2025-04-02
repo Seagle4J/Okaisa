@@ -1,5 +1,5 @@
-// TODO Add clearScreen() function after every input
 // TODO Make the ouput colorfull
+// TODO MAKE PROPER TABLE OUTPUT
 
 
 import java.io.*;
@@ -30,7 +30,7 @@ public class TransactionManager {
             System.out.println("4. Query Transactions");
             System.out.println("5. Info (Spending/Credit Reports)");
             System.out.println("6. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.print("\033[93mEnter your choice: \033[0m ");
 
             int choice;
             try {
@@ -187,8 +187,7 @@ public class TransactionManager {
                 System.out.println("Editing transaction: " + transaction);
                 System.out.println("Leave field empty to keep current value.");
 
-                System.out.print("1. To (person): ");
-                System.out.print("To (person) [" + transaction.getPerson() + "]: ");
+                System.out.print("To/From [" + transaction.getPerson() + "]: ");
                 String person = scanner.nextLine().trim();
                 if (!person.isEmpty()) {
                     transaction.setPerson(person);
@@ -265,11 +264,11 @@ public class TransactionManager {
         System.out.println("\n\033[0;34m===== Query Transactions =====\033[0m");
         System.out.println("1. All Transactions");
         System.out.println("2. Custom Query");
-        System.out.print("Enter your choice: ");
+        System.out.print("\033[93mEnter your choice: \033[0m ");
 
         try {
             int choice = Integer.parseInt(scanner.nextLine().trim());
-
+            
             switch (choice) {
                 case 1:
                     displayAllTransactions();
@@ -283,6 +282,7 @@ public class TransactionManager {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
         }
+        clearScreen();
     }
 
     private static void customQuery() {
@@ -440,7 +440,7 @@ public class TransactionManager {
         System.out.println("1. Today's Spending/Credit");
         System.out.println("2. Weekly Spending/Credit");
         System.out.println("3. Monthly Spending/Credit");
-        System.out.print("Enter your choice: ");
+        System.out.print("\033[93mEnter your choice: \033[0m ");
 
         try {
             int choice = Integer.parseInt(scanner.nextLine().trim());
@@ -478,6 +478,7 @@ public class TransactionManager {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
         }
+        clearScreen();
     }
 
     private static void displaySummary(String period, List<Transaction> filteredTransactions) {
