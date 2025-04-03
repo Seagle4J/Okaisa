@@ -24,7 +24,7 @@ public class TransactionManager {
             System.out.println("2. Delete Transaction");
             System.out.println("3. Edit Transaction");
             System.out.println("4. Query Transactions");
-            System.out.println("5. Info (Spending/Credit Reports)");
+            System.out.println("5. Info (Debit/Credit Reports)");
             System.out.println("6. Exit");
             System.out.print("\033[93mEnter your choice: \033[0m ");
 
@@ -434,9 +434,9 @@ public class TransactionManager {
 
     private static void showInfo() {
         System.out.println("\n===== Information =====");
-        System.out.println("1. Today's Spending/Credit");
-        System.out.println("2. Weekly Spending/Credit");
-        System.out.println("3. Monthly Spending/Credit");
+        System.out.println("1. Today's Debit/Credit");
+        System.out.println("2. Weekly Debit/Credit");
+        System.out.println("3. Monthly Debit/Credit");
         System.out.print("\033[93mEnter your choice: \033[0m ");
 
         try {
