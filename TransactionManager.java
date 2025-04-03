@@ -74,7 +74,7 @@ public class TransactionManager {
     private static void addTransaction() {
         System.out.println("\n\033[0;34m===== Add Transaction =====\033[0m");
 
-        System.out.print("To (person): ");
+        System.out.print("To/From: ");
         String person = scanner.nextLine().trim();
 
         System.out.print("Description: ");
@@ -327,7 +327,7 @@ public class TransactionManager {
                 maxAmount = new BigDecimal(maxAmountStr);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid amount. Ignoring this filter.");
-            }
+            }               
         }
 
         System.out.print("4. Type (debit/credit): ");
@@ -394,8 +394,7 @@ public class TransactionManager {
         final LocalTime finalEndTime = endTime;
 
         List<Transaction> filteredTransactions = transactions.stream()
-                .filter(t -> finalPersonFilter == null
-                        || t.getPerson().toLowerCase().contains(finalPersonFilter.toLowerCase()))
+                .filter(t -> finalPersonFilter == null || t.getPerson().toLowerCase().contains(finalPersonFilter.toLowerCase()))
                 .filter(t -> finalDescriptionFilter == null || t.getDescription().equals(finalDescriptionFilter))
                 .filter(t -> finalMinAmount == null || t.getAmount().compareTo(finalMinAmount) >= 0)
                 .filter(t -> finalMaxAmount == null || t.getAmount().compareTo(finalMaxAmount) <= 0)
@@ -644,8 +643,11 @@ class Transaction implements Serializable {
 
         // Print the actual row data with proper spacing
         sb.append(String.format("%-5d | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s",
-                id, person, description.length() > 20 ? description.substring(0, 17) + "..." : description,
-                amount.toString(), type,
+                id, 
+                person.length() > 12 ? person.substring(0, 9) + "..." : person, 
+                description.length() > 20 ? description.substring(0, 17) + "..." : description,
+                amount.toString(), 
+                type,
                 date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 time.format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
 
