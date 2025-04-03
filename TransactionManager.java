@@ -2,7 +2,7 @@
 /*
         System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n",
                 "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
-        System.out.println("-".repeat(90)).append("\n");
+        // System.out.println("-".repeat(95)).append("\n");
  */
 // Add the above code just before printing transactions
 
@@ -21,12 +21,13 @@ public class TransactionManager {
     private static List<Transaction> transactions = new ArrayList<>();
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     public static void main(String[] args) {
         loadTransactions();
         boolean running = true;
 
         while (running) {
-            System.out.println("\n\033[0;32m===== Transaction Manager =====\033[0m");
+            System.out.println("\n\033[0;32m===== Okaisa =====\033[0m");
             System.out.println("1. Add Transaction");
             System.out.println("2. Delete Transaction");
             System.out.println("3. Edit Transaction");
@@ -70,13 +71,13 @@ public class TransactionManager {
         }
 
         saveTransactions();
-        System.out.println("\033[0;32mThank you for using Transaction Manager. Goodbye!\033[0m");
+        System.out.println("\033[0;32mThank you for using Okaisa. Goodbye!\033[0m");
     }
 
-    private static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+    // private static void clearScreen() {
+    //     System.out.print("\033[H\033[2J");
+    //     System.out.flush();
+    // }
 
     private static void addTransaction() {
         System.out.println("\n\033[0;34m===== Add Transaction =====\033[0m");
@@ -271,7 +272,7 @@ public class TransactionManager {
 
         try {
             int choice = Integer.parseInt(scanner.nextLine().trim());
-            
+
             switch (choice) {
                 case 1:
                     displayAllTransactions();
@@ -418,6 +419,8 @@ public class TransactionManager {
         if (filteredTransactions.isEmpty()) {
             System.out.println("No transactions found matching the criteria.");
         } else {
+            System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+            System.out.println("-".repeat(95));
             filteredTransactions.forEach(System.out::println);
             System.out.println("\nTotal transactions: " + filteredTransactions.size());
 
@@ -522,6 +525,8 @@ public class TransactionManager {
 
         // Display individual transactions
         System.out.println("\nTransactions:");
+        System.out.print(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+        System.out.println("-".repeat(95));
         filteredTransactions.forEach(System.out::println);
     }
 
@@ -530,6 +535,8 @@ public class TransactionManager {
         if (transactions.isEmpty()) {
             System.out.println("No transactions found.");
         } else {
+            System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+            System.out.println("-".repeat(95));
             transactions.forEach(System.out::println);
             System.out.println("\nTotal transactions: " + transactions.size());
         }
@@ -642,14 +649,14 @@ class Transaction implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-    
+
         // Print the actual row data with proper spacing
         sb.append(String.format("%-5d | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s",
                 id, person, description.length() > 20 ? description.substring(0, 17) + "..." : description,
                 amount.toString(), type,
                 date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 time.format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
-    
+
         return sb.toString();
     }
 }
