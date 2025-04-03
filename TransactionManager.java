@@ -1,11 +1,3 @@
-// TODO MAKE PROPER TABLE OUTPUT
-/*
-        System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n",
-                "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
-        // System.out.println("-".repeat(95)).append("\n");
- */
-// Add the above code just before printing transactions
-
 import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
