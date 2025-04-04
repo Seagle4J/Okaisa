@@ -142,7 +142,7 @@ The application allows filtering transactions by:
 
 ## License
 
-[Add your preferred license information here]
+This project is licensed under [GNU General Public License v3.0](./LICENSE)
 
 ## Contributing
 
