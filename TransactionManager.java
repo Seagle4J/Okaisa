@@ -183,21 +183,19 @@ public class TransactionManager {
                 System.out.println("Editing transaction: " + transaction);
                 System.out.println("Leave field empty to keep current value.");
 
-                System.out.print("To/From [" + transaction.getPerson() + "]: ");
+                System.out.print("1. To/From [" + transaction.getPerson() + "]: ");
                 String person = scanner.nextLine().trim();
                 if (!person.isEmpty()) {
                     transaction.setPerson(person);
                 }
 
-                System.out.print("2. Description: ");
-                System.out.print("Description [" + transaction.getDescription() + "]: ");
+                System.out.print("2. Description [" + transaction.getDescription() + "]: ");
                 String description = scanner.nextLine().trim();
                 if (!description.isEmpty()) {
                     transaction.setDescription(description);
                 }
 
-                System.out.print("3. Amount: ");
-                System.out.print("Amount [" + transaction.getAmount() + "]: ");
+                System.out.print("3. Amount [" + transaction.getAmount() + "]: ");
                 String amountStr = scanner.nextLine().trim();
                 if (!amountStr.isEmpty()) {
                     try {
@@ -207,8 +205,7 @@ public class TransactionManager {
                     }
                 }
 
-                System.out.print("4. Type (debit/credit): ");
-                System.out.print("Type (debit/credit) [" + transaction.getType() + "]: ");
+                System.out.print("4. Type (debit/credit) [" + transaction.getType() + "]: ");
                 String type = scanner.nextLine().trim();
                 if (!type.isEmpty()) {
                     if (type.equalsIgnoreCase("debit")) {
@@ -223,8 +220,7 @@ public class TransactionManager {
                         }
                     }
 
-                    System.out.print("5. Date (YYYY-MM-DD): ");
-                    System.out.print("Date (YYYY-MM-DD) [" + transaction.getDate().format(DATE_FORMATTER) + "]: ");
+                    System.out.print("5. Date (YYYY-MM-DD) [" + transaction.getDate().format(DATE_FORMATTER) + "]: ");
                     String dateStr = scanner.nextLine().trim();
                     if (!dateStr.isEmpty()) {
                         try {
@@ -234,8 +230,7 @@ public class TransactionManager {
                         }
                     }
 
-                    System.out.print("6. Time (HH:MM:SS): ");
-                    System.out.print("Time (HH:MM:SS) [" + transaction.getTime().format(TIME_FORMATTER) + "]: ");
+                    System.out.print("6. Time (HH:MM:SS) [" + transaction.getTime().format(TIME_FORMATTER) + "]: ");
                     String timeStr = scanner.nextLine().trim();
                     if (!timeStr.isEmpty()) {
                         try {
@@ -410,7 +405,7 @@ public class TransactionManager {
         if (filteredTransactions.isEmpty()) {
             System.out.println("No transactions found matching the criteria.");
         } else {
-            System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+            System.out.print(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
             System.out.println("-".repeat(95));
             filteredTransactions.forEach(System.out::println);
             System.out.println("\nTotal transactions: " + filteredTransactions.size());
@@ -526,7 +521,7 @@ public class TransactionManager {
         if (transactions.isEmpty()) {
             System.out.println("No transactions found.");
         } else {
-            System.out.println(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
+            System.out.print(String.format("%-5s | %-12s | %-20s | %-10s | %-10s | %-12s | %-8s\n", "ID", "Person", "Description", "Amount", "Type", "Date", "Time"));
             System.out.println("-".repeat(95));
             transactions.forEach(System.out::println);
             System.out.println("\nTotal transactions: " + transactions.size());
