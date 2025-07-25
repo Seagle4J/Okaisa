@@ -184,8 +184,11 @@ Contributions to Okaisa Transaction Manager are welcome and appreciated. Here's 
 
 Thank you for considering contributing to this project!
 
-## Author
+## Contributors
 
 - Name: Deepanshu Choudhary (h4636oh)
 - Email: <h4636oh@tuta.io>
 - LinkedIn: <https://www.linkedin.com/in/deepanshu-choudhary-4952a4297/>
+- Name-Suparna Joshi(Seagle4J)
+- Email:sajoshi4104@gmail.com
+- LinkedIn: <https://www.linkedin.com/in/suparna-abhijeet-joshi-441a27297/>
